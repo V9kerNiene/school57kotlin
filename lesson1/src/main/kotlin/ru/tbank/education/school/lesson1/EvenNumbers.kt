@@ -1,7 +1,7 @@
 package ru.tbank.education.school.lesson1
 
 /**
- * Сумма четных чисел.s1
+ * Сумма четных чисел.s112341432
  */
 fun sumEvenNumbers(numbers: Array<Int>): Int {
     var u = 0
