@@ -1,7 +1,7 @@
 package ru.tbank.education.school.lesson1
 
 /**
- * Метод для вычисления простых арифметических операций.1234
+ * Метод для вычисления простых арифметических операций.1234123
  */
 fun calculate(a: Double?, b: Double?, operation: OperationType = OperationType.ADD): Double? {
 
