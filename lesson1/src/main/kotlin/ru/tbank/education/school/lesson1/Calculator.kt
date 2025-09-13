@@ -3,8 +3,37 @@ package ru.tbank.education.school.lesson1
 /**
  * Метод для вычисления простых арифметических операций.
  */
-fun calculate(a: Double, b: Double, operation: OperationType): Double? {
-    TODO()
+fun calculate(a: Double?, b: Double?, operation: OperationType = OperationType.ADD): Double? {
+
+    a?.let {
+        b?.let{
+            when (operation) {
+                OperationType.ADD -> {
+                    return a+b
+                }
+                OperationType.SUBTRACT -> {
+                    return a-b
+                }
+                OperationType.DIVIDE -> {
+                    return if (b==0.0) {
+                        null
+                    } else{
+                        a/b
+                    }
+                }
+                OperationType.MULTIPLY -> {
+                    return a*b
+                }
+            }
+        }
+        b?: {
+            println("Error")
+        }
+    }
+    a?: {
+        println("Error")
+    }
+    return null
 }
 
 /**
