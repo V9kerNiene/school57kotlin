@@ -8,7 +8,7 @@ class statblock(
     var xp: Int = 0,
     var clasS: String = "None",
     var race: String = "Human",
-    var power: Float = 10F
+    var power: Float = 10F    //1
 ) {
     // Дополнительный конструктор
     constructor(savedData: String) : this(

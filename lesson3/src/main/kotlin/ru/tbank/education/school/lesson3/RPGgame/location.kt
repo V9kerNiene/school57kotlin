@@ -44,7 +44,7 @@ class Village : location() {
     }
     private val lootGenerator: LootGenerator = LootGenerator {
         listOf(item(1, "Простое зелье здоровья", "Обычное зелье лечения", mapOf("hp" to 5)))
-    }
+    }    //1
     override fun getLoot(): List<item> {
         return lootGenerator.generateLoot()
     }

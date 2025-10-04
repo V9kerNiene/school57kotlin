@@ -242,7 +242,7 @@ fun gameLoop(player: player) {
             3 -> {
                 if (player.inv.isEmpty()) {
                     println("Инвентарь пуст! Выберите другое действие.")
-                    continue
+                    continue    //1
                 }
                 var actionCompleted = false
                 println("Выберите предмет для использования:")

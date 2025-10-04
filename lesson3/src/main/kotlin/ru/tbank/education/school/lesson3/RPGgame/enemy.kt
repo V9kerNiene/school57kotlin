@@ -26,7 +26,7 @@ open class enemy(
         val actualDamage = damage + (-damageDeviation.roundToInt()..damageDeviation.roundToInt()).random()
         println("$name атакует и наносит $actualDamage урона!")
         target.getHit(actualDamage)
-    }
+    }    //1
 
     open fun specialAbility(): String {
         return "Использует обычную атаку"

@@ -42,7 +42,7 @@ data class item(
             2 -> mapOf("power" to 5)
             3 -> mapOf("hp" to 20, "power" to 3)
             4 -> mapOf("power" to 10)
-            else -> mapOf()
+            else -> mapOf()    //1
         }
     )
 }
