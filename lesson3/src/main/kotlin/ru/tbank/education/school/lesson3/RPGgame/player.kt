@@ -11,7 +11,7 @@ class player(
     var completedLoc: Boolean = false,
     override var hp: Float = 100F
 ) : Damageable, Attacker {
-
+    //1
     /*override var hp: Float = 100.0f
         set(value) {
             if (value <= 0) {
