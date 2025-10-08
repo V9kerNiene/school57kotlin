@@ -4,7 +4,7 @@ package ru.tbank.education.school.lesson3.RPGgame
 interface Damageable {
     var hp: Float
     fun getHit(dmg: Float)
-}
+}    //1
 
 interface Attacker {
     val damage: Float
