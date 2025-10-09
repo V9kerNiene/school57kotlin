@@ -4,6 +4,7 @@ import java.io.File
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Paths
+import kotlin.toString
 
 /**
  * Интерфейс для подсчёта строк и слов в файле.
@@ -34,14 +35,15 @@ class IOFileAnalyzer : FileAnalyzer {
             while (reader.readLine().also { line = it } != null) {
                 countLines++
                 var i = 0
-                while (i < line!!.length) {
-                    while (line[i] != ' ')  {
+                while (i < line.toString().length-1) {
+                    while ((line.toString()[i] == ' ') and (i < line.toString().length-1)) {
+                        i++
+                    }
+                    while ((line.toString()[i] != ' ') and (i < line.toString().length-1))  {
                         i++
                     }
                     countWords++
-                    while (line[i] == ' ') {
-                        i++
-                    }
+                    print(line)
                 }
             }
             res.writeText("Количество строк: $countLines\nКоличество слов: $countWords")
@@ -66,14 +68,14 @@ class NIOFileAnalyzer : FileAnalyzer {
             for (line in jj.split("\n")) {
                 countLines++
                 var i = 0
-                while (i < line.length) {
-                    while (line[i] != ' ')  {
+                while (i < line.length-1) {
+                    while ((line[i] == ' ') and (i < line.length-1)) {
+                        i++
+                    }
+                    while ((line[i] != ' ') and (i < line.length-1))  {
                         i++
                     }
                     countWords++
-                    while (line[i] == ' ') {
-                        i++
-                    }
                 }
             }
             val res = "Количество строк: $countLines\nКоличество слов: $countWords"

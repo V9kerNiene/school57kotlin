@@ -42,16 +42,17 @@ class MovieBookingService(
      * @throws SeatAlreadyBookedException если место уже забронировано +
      */
     private var allTaken = false
-    fun checkIfEmptyAndDoThatOneThingy(movieId: String) {
+    private fun checkIfEmptyAndDoThatOneThingy(movieId: String) {
         if (seaats[movieId] == null) {
             seaats[movieId] = MutableList(maxQuantityOfSeats+1) {false}
         }
     }
-    fun checkAll(movieId: String) {
+    private fun checkAll(movieId: String) {
         checkIfEmptyAndDoThatOneThingy(movieId)
         var j = true
-        for (i in seaats[movieId]!!) {
-            if (!i) j = false
+        //print(seaats)
+        for (i in 1..maxQuantityOfSeats) {
+            if (!seaats[movieId]!![i]) j = false
         }
         allTaken = j
     }
@@ -60,6 +61,7 @@ class MovieBookingService(
         checkAll(movieId)
         if ((1 <= seat) and (seat <= maxQuantityOfSeats)) {
             val dan = seaats[movieId]?.get(seat)
+
             if (allTaken) {
                 throw NoAvailableSeatException("На данный фильм более нет свободных мест!")
             }
@@ -83,6 +85,9 @@ class MovieBookingService(
      */
     fun cancelBooking(movieId: String, seat: Int) {
         checkIfEmptyAndDoThatOneThingy(movieId)
+        if ((seat > maxQuantityOfSeats) or (seat < 1)) {
+            throw IllegalArgumentException("Такого места не существует!")
+        }
         if (seaats[movieId]?.get(seat) == false) throw NoSuchElementException("Это место не забронировано!")
         else {
             seaats[movieId]?.set(seat, true)
@@ -96,12 +101,10 @@ class MovieBookingService(
      * @return true если место занято, false иначе
      */
     fun isSeatBooked(movieId: String, seat: Int): Boolean {
+        if ((seat > maxQuantityOfSeats) or (seat < 1)) {
+            throw IllegalArgumentException("Такого места не существует!")
+        }
         checkIfEmptyAndDoThatOneThingy(movieId)
         return seaats[movieId]!![seat]
     }
-}
-
-fun main() {
-    var jj = MovieBookingService(15)
-    jj.bookSeat("Kino",10)
 }
