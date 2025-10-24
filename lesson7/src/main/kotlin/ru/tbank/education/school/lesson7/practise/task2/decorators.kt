@@ -104,19 +104,24 @@ fun <A, R> logCalls(name: String, f: (A) -> R): (A) -> R {
  * val safe = retry(5, unstable)
  * println(safe()) // ok
  */
-fun <T> retry(times: Int, f: () -> T): () -> T {
+fun <T> retry(times: Int, f: () -> T): () -> T? {
     return {
         var i = 0
+        var ch = false
+        var res: T? = null
+        var Ex: Exception = Exception()
         while (i < times) {
             try {
-                f()
+                res = f()
             }
             catch (e: Exception) {
-                f()
+                ch = true
+                Ex = e
             }
             i++
         }
-        f()
+        if (ch) throw Ex
+        else res
     }
 }
 
