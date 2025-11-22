@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test
 
 class UserProfileTests {
 
-    // --- Tests for isUserOlder ---
 
     @Test
     fun `isUserOlder returns true when age greater than min`() {

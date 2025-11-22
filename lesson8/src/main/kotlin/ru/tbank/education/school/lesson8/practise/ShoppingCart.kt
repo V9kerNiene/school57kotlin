@@ -1,6 +1,7 @@
 package ru.tbank.education.school.lesson8.practise
 
 import java.time.LocalDateTime
+import kotlin.math.max
 
 data class Product(
     val id: String,
@@ -27,19 +28,47 @@ class ShoppingCart {
     private var discounts: MutableList<Discount> = mutableListOf()
 
     fun addProduct(product: Product, quantity: Int): Boolean {
-        TODO("Добавить товар в корзину")
+        var pr = CartItem(product, quantity)
+        for (i in items) {
+            if (i.product == product) {
+                pr = CartItem(product, max(0, i.quantity+quantity), i.addedAt)
+                items.remove(i)
+            }
+        }
+        items.add(pr)
+        return true
     }
     
     fun removeProduct(productId: String, quantity: Int): Boolean {
-        TODO("Удалить товар из корзины")
+        var flag = false
+        var pr: CartItem? = null
+        for (i in items) {
+            if (i.product.id==productId) {
+                pr = CartItem(i.product, max(0, i.quantity-quantity), i.addedAt)
+                flag = true
+                items.remove(i)
+            }
+        }
+        pr?.let { items.add(pr) }
+        return flag
     }
     
     fun updateQuantity(productId: String, newQuantity: Int): Boolean {
-        TODO("Изменить количество товара")
+        var flag = false
+        var pr: CartItem? = null
+        for (i in items) {
+            if (i.product.id==productId) {
+                pr = CartItem(i.product, newQuantity, i.addedAt)
+                flag = true
+                items.remove(i)
+            }
+        }
+        pr?.let { items.add(pr) }
+        return flag
     }
     
     fun clear() {
-        TODO("Очистить корзину")
+        items.clear()
     }
 
     fun getSubtotal(): Double {
@@ -47,7 +76,11 @@ class ShoppingCart {
     }
     
     fun getTotalWeight(): Double {
-        TODO("Рассчитать общий вес заказа")
+        var totalWeight = 0.0
+        for (i in items) {
+            totalWeight += i.product.weight
+        }
+        return totalWeight
     }
     
     fun getTotalWithDiscounts(): Double {
@@ -60,15 +93,31 @@ class ShoppingCart {
 
     
     fun validateWeightLimit(maxWeight: Double = 50.0): Boolean {
-        TODO("Проверить не превышен ли лимит веса")
+        return getTotalWeight() > maxWeight
     }
 
     fun getMostExpensiveItem(): CartItem? {
-        TODO("Найти самый дорогой товар")
+        return when {
+            (items.isEmpty()) -> null
+            else -> {
+                var mx = -1.0
+                var mxI: CartItem? = null
+                for (i in items) {
+                    if (i.product.price > mx) {
+                        mx = i.product.price
+                        mxI = i
+                    }
+                }
+                mxI
+            }
+        }
+
     }
     
     fun getItemsByCategory(category: String): List<CartItem> {
-        TODO("Получить товары по категории")
+        return items.filter { cartItem ->
+            cartItem.product.category==category
+        }
     }
 
     fun getItemCount(): Int {

@@ -20,9 +20,22 @@ data class Product(
  */
 
 fun getMostExpensivePrice(products: List<Product>): Double? {
-    TODO()
+    val x = products.filter { product ->
+        product.price!=null
+    }
+    if (x.isEmpty()) {
+        return null
+    } else {
+        var mx = -1.0
+        for (i in x) {
+            if (i.price!! > mx) mx = i.price
+        }
+        return mx
+    }
 }
 
 fun groupProductsByCategory(products: List<Product>): Map<String, List<Product>> {
-    TODO()
+    return products.groupBy { product ->
+        product.category ?: "Без категории"
+    }
 }

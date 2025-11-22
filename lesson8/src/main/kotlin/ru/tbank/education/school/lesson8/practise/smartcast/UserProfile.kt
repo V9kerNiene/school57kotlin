@@ -26,11 +26,11 @@ fun getUserProfile(): UserProfile? {
  */
 
 fun isUserOlder(profile: UserProfile?, minAge: Int): Boolean {
-    TODO()
+    return (profile?.age?.let { it > minAge } ?: false)
 }
 
 fun isProfileCompleted(profile: UserProfile?): Boolean {
-    TODO()
+    return (profile?.name?.let { profile.email?.let { true } ?: false } ?: false)
 }
 
 fun validateUser(minAge: Int): Pair<Boolean, Boolean> {
