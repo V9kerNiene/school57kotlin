@@ -1,5 +1,11 @@
 package ru.tbank.education.school.homework
 
+import java.io.File
+import java.nio.charset.StandardCharsets
+import java.nio.file.Files
+import java.nio.file.Paths
+import kotlin.toString
+
 /**
  * Интерфейс для подсчёта строк и слов в файле.
  */
@@ -20,12 +26,65 @@ interface FileAnalyzer {
 
 class IOFileAnalyzer : FileAnalyzer {
     override fun countLinesAndWordsInFile(inputFilePath: String, outputFilePath: String): Boolean {
-        TODO("Реализовать логику")
+        val reader = File(inputFilePath).bufferedReader()
+        val res = File(outputFilePath)
+        var countLines = 0
+        var countWords = 0
+        try {
+            var line: String?
+            while (reader.readLine().also { line = it } != null) {
+                countLines++
+                var i = 0
+                while (i < line.toString().length-1) {
+                    while ((line.toString()[i] == ' ') and (i < line.toString().length-1)) {
+                        i++
+                    }
+                    while ((line.toString()[i] != ' ') and (i < line.toString().length-1))  {
+                        i++
+                    }
+                    countWords++
+                    print(line)
+                }
+            }
+            res.writeText("Количество строк: $countLines\nКоличество слов: $countWords")
+            return true
+        }
+        catch (e: Exception) {
+            println("Ошибка при чтении файла: ${e.message}")
+            return false
+        }
+        finally {
+            reader.close()
+        }
     }
 }
 
 class NIOFileAnalyzer : FileAnalyzer {
     override fun countLinesAndWordsInFile(inputFilePath: String, outputFilePath: String): Boolean {
-        TODO("Реализовать логику")
+        var countLines = 0
+        var countWords = 0
+        try {
+            val jj = Files.readString(Paths.get(inputFilePath))
+            for (line in jj.split("\n")) {
+                countLines++
+                var i = 0
+                while (i < line.length-1) {
+                    while ((line[i] == ' ') and (i < line.length-1)) {
+                        i++
+                    }
+                    while ((line[i] != ' ') and (i < line.length-1))  {
+                        i++
+                    }
+                    countWords++
+                }
+            }
+            val res = "Количество строк: $countLines\nКоличество слов: $countWords"
+            Files.write(Paths.get(outputFilePath),res.toByteArray(StandardCharsets.UTF_8))
+            return true
+        }
+        catch (e: Exception) {
+            println("Ошибка при чтении файла: ${e.message}")
+            return false
+        }
     }
 }
