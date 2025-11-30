@@ -101,7 +101,7 @@ class LibraryServiceTest {
         library.borrowBook("978-0-452-28423-4", "Ivan")
 
         assertThrows(IllegalArgumentException::class.java) {
-            library.borrowBook("978-0-441-17271-9", "Ivan")
+            library.borrowBook("978-0-441-17271-9", "Ivan", 11) // К РЕДАКЦИИ
         }
     }
 }
