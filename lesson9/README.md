@@ -58,14 +58,14 @@ zip -r config_backup.zip config/*.conf
 - файл errors.txt (если он есть)
 
 ```bash
-zip -r project_backup.zip config/*.conf log/*.logs logs/old/*.logs errors.txt 2>/dev/null
+tar -czvf project_backup.tar.gz config/*.conf logs/**/*.logs errors.txt 2>/dev/null
 ```
 
 ## Задание 9. Очистка пустых строк в логах
 Создать файл cleaned_app.log, содержащий содержимое app.log без пустых строк.
 
 ```bash
-TODO()
+grep -v '^$' ./logs/app.logs > cleaned_app.logs
 ```
 
 ## Задание 10. Подсчёт количества строк в каждом конфиге
@@ -75,7 +75,7 @@ db.conf 8
 (где число — количество строк в файле)
 
 ```bash
-TODO()
+ wc -l ./config/*.conf | head -n -1 | awk '{print $2, $1}' > conf_stats.txt
 ```
 
 
