@@ -12,6 +12,22 @@ object CreateThreads {
      * @return список созданных потоков (после их завершения)
      */
     fun run(): List<Thread> {
-        TODO("Реализуйте создание и запуск 3 потоков")
+        val threads = mutableListOf<Thread>()
+        val names = listOf("Thread-A", "Thread-B", "Thread-C")
+        names.map {
+            threads.add(
+                Thread({
+                    Thread.sleep(500)
+                    repeat(5) {
+                        println(Thread.currentThread().name)
+                    }
+                }, it)
+            )
+        }
+        threads.forEach {
+            it.start()
+        }
+        threads.forEach { it.join() }
+        return threads
     }
 }

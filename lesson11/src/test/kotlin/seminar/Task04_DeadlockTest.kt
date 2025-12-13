@@ -9,7 +9,6 @@ import kotlin.test.assertTrue
  */
 class DeadlockTest {
 
-//     Тест для deadlock закомментирован - он зависнет!
 //     @Test
 //     fun `should demonstrate deadlock`() {
 //         Deadlock.runDeadlock()
