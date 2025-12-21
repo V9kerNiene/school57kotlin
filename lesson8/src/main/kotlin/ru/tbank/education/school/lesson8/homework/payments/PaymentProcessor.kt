@@ -112,7 +112,7 @@ class PaymentProcessor {
      * Проверка на подозрительные номера карт (например, тестовые)
      */
     private fun isSuspiciousCard(cardNumber: String): Boolean {
-        val suspiciousPrefixes = listOf("4444", "5555", "1111", "9999")
+        val suspiciousPrefixes = listOf("4441", "5555", "1111", "9999") // изменил первый элемент!
         return suspiciousPrefixes.any { cardNumber.startsWith(it) } ||
                 isLuhnInvalid(cardNumber)
     }
@@ -136,7 +136,7 @@ class PaymentProcessor {
             sum += adjustedDigit
             isEven = !isEven
         }
-
+        println(sum)
         return sum % 10 != 0
     }
 
